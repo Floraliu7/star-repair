@@ -137,4 +137,4 @@ def run(
         )
         np.savetxt(M_path, model.M, delimiter="\t")
 
-    return results, model.M
+    return model.M

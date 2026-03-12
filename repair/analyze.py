@@ -9,7 +9,6 @@ import re
 import pandas as pd
 import lap
 import repair.funcs as F
-import anndata as ad
 
 
 def read_data(
@@ -28,7 +27,7 @@ def match_name(s: List[str], p: str):
     if isinstance(s, str):
         s = [s]
 
-    return np.array(list(map(lambda x: re.search(p, x) is not None, s)),dtype = bool)
+    return np.array(list(map(lambda x: re.search(p, x) is not None, s)), dtype=bool)
 
 
 def split(
@@ -52,13 +51,14 @@ def split(
 def assign(model: "m.Model") -> pd.DataFrame:
     _, row, col = lap.lapjv(-np.asarray(model.M), extend_cost=True)
     ab_map = row
-    # ab_map = np.argmax(model.M, axis=1)
 
-    score = model.M[(np.arange(len(model.A_names)),ab_map)]
+    score = model.M[(np.arange(len(model.A_names)), ab_map)]
+
     res = pd.DataFrame(
-        dict(chainA=model.A_names, chainB=model.B_names[ab_map], score = score),
+        dict(chainA=model.A_names, chainB=model.B_names[ab_map], score=score),
         index=["Pair_{}".format(x) for x in range(len(ab_map))],
     )
+
     return res
 
 
@@ -87,6 +87,7 @@ def run(
         global_dict["outdir"] = osp.dirname(pth)
 
     adata = read_data(pth)
+
     if save_adata and not pth.endswith(".h5ad"):
         adata.write_h5ad(
             osp.join(
@@ -108,17 +109,32 @@ def run(
     )
 
     lossHistory = F.fit(model, n_steps=n_steps, verbose=True, learning_rate=1e-2)
+
     if save_loss_history:
         loss_path = osp.join(
             global_dict["outdir"],
             global_dict.get("tag", C.NAME) + "_loss_history.dat",
         )
+
         with open(loss_path, "w+") as f:
             f.writelines("\n".join([str(x) for x in lossHistory]))
 
     results = assign(model)
 
     if save_output:
-        results.to_csv(osp.join(global_dict["outdir"],global_dict["tag"] + "_analysis_result.tsv"),sep = "\t")
+        results.to_csv(
+            osp.join(
+                global_dict["outdir"], global_dict["tag"] + "_analysis_result.tsv"
+            ),
+            sep="\t",
+        )
 
-    return results
+    # ---- Added modification ----
+    # Save fitted model matrix (M) for downstream analysis
+    if save_output:
+        M_path = osp.join(
+            global_dict["outdir"], global_dict["tag"] + "_model_matrix.tsv"
+        )
+        np.savetxt(M_path, model.M, delimiter="\t")
+
+    return results, model.M

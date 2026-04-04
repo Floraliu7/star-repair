@@ -1,5 +1,5 @@
 pytest>=5.2
-numpy==1.21.4
+numpy>=1.23
 jax==0.4.23
 jaxlib==0.4.23
 anndata==0.8.0

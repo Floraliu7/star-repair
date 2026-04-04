@@ -1,34 +1,16 @@
 name: repair
+
 channels:
   - conda-forge
-  - bioconda
   - defaults
-  - https://repo.anaconda.com/pkgs/main
-  - https://repo.anaconda.com/pkgs/r
+
 dependencies:
-  - blas=1.0=openblas
-  - bzip2=1.0.8=h80987f9_6
-  - ca-certificates=2024.11.26=hca03da5_0
-  - certifi=2024.8.30=py310hca03da5_0
-  - libcxx=14.0.6=h848a8c0_0
-  - libffi=3.4.4=hca03da5_1
-  - libgfortran=5.0.0=11_3_0_hca03da5_28
-  - libgfortran5=11.3.0=h009349e_28
-  - libopenblas=0.3.21=h269037a_0
-  - llvm-openmp=14.0.6=hc6e5704_0
-  - ncurses=6.4=h313beb8_0
-  - openssl=3.0.15=h80987f9_0
-  - pip=24.2=py310hca03da5_0
-  - python=3.11
-  - readline=8.2=h1a28f6b_0
-  - scipy=1.14.1=py310hd336fd7_0
-  - setuptools=72.1.0=py310hca03da5_0
-  - sqlite=3.45.3=h80987f9_0
-  - tk=8.6.14=h6ba3021_0
-  - tzdata=2024b=h04d1e81_0
-  - wheel=0.44.0=py310hca03da5_0
-  - xz=5.4.6=h80987f9_1
-  - zlib=1.2.13=h18a0788_1
+  - python=3.10
+  - pip
+  - numpy=1.26.4
+  - scipy
+  - pandas
+
   - pip:
       - absl-py==1.2.0
       - anndata==0.8.0
@@ -41,10 +23,8 @@ dependencies:
       - lap==0.5.12
       - ml-dtypes==0.5.0
       - natsort==8.1.0
-      - numpy==1.26.4
       - opt-einsum==3.3.0
       - packaging==22.0
-      - pandas==1.4.3
       - pluggy==1.0.0
       - py==1.11.0
       - pyparsing==3.0.9
@@ -55,4 +35,3 @@ dependencies:
       - tomli==2.0.1
       - tqdm==4.64.0
       - typing-extensions==4.3.0
-prefix: /opt/anaconda3/envs/repairupdate

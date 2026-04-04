@@ -19,7 +19,7 @@ dependencies:
   - ncurses=6.4=h313beb8_0
   - openssl=3.0.15=h80987f9_0
   - pip=24.2=py310hca03da5_0
-  - python=3.10.15=hb885b13_1
+  - python=3.11
   - readline=8.2=h1a28f6b_0
   - scipy=1.14.1=py310hd336fd7_0
   - setuptools=72.1.0=py310hca03da5_0
@@ -51,7 +51,6 @@ dependencies:
       - pytest==7.1.2
       - python-dateutil==2.8.2
       - pytz==2022.2.1
-      - repair==1.0
       - six==1.16.0
       - tomli==2.0.1
       - tqdm==4.64.0
